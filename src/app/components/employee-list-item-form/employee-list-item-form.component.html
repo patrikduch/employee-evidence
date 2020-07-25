@@ -1,0 +1,100 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ modalInfo.title }}
+    </h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #f="ngForm" (ngSubmit)="onFormSubmit(f)" novalidate>
+      <div class="form-group">
+        <label for="firstNameFormControlInput">Křestní jméno</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstNameFormControlInput"
+          name="firstName"
+          [ngModel]="newData != null ? newData.firstName : ''"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="lastNameFormControlInput0">Přijmení</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lastNameFormControlInput"
+          ngModel
+          name="lastName"
+          [ngModel]="newData != null ? newData.lastName : ''"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Pracovní pozice</label>
+
+        <select
+          class="form-control"
+          name="workPosition"
+          type="number"
+          [ngModel]="newData != null ? newData.workPosition : ''"
+        >
+          <option
+            *ngFor="let workPosition of workPositions"
+            [ngValue]="workPosition"
+            >{{ workPosition }}</option
+          >
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="dateOfBirth">Datum narození</label>
+        <div class="input-group">
+          <input
+            id="dateOfBirth"
+            class="form-control"
+            name="dp"
+            ngbDatepicker
+            [minDate]="{ year: 1900, month: 1, day: 1 }"
+            placeholder="{{ newData != null ? newData.birthDate : '' }}"
+            ngModel
+            #dp="ngbDatepicker"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary calendar"
+              (click)="dp.toggle()"
+              type="button"
+            ></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">
+          <span *ngIf="isCreate(); else nonCreational">Vytvořit</span>
+          <ng-template #nonCreational>
+            <span>Upravit</span>
+          </ng-template>
+        </button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<button
+  [className]="
+    modalInfo.submitBtn.isAligned ? 'btn-aligned new-btn' : 'edit-btn'
+  "
+  class="btn btn-sm"
+  (click)="open(content)"
+>
+  {{ modalInfo.submitBtn.title }}
+</button>

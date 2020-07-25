@@ -1,0 +1,18 @@
+<app-pagetitle [title]="pageTitle"></app-pagetitle>
+
+<app-employee-searchbar #searchInput
+  (processedTerm)="onTerm($event)"
+></app-employee-searchbar>
+
+<app-employee-list-item-add
+  [employeeList]="employeeList"
+  [workPositions]="workPositions"
+  [modalInfo]="modalInfo"
+>
+</app-employee-list-item-add>
+
+<app-employee-list-table
+  [employeeList]="employeeList"
+  [searchQuery]="searchQuery"
+  [workPositions]="workPositions"
+></app-employee-list-table>

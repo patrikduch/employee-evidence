@@ -1,0 +1,46 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Křestní jméno</th>
+      <th scope="col">Přijmení</th>
+      <th scope="col">Datum narození</th>
+      <th scope="col">Pracovní pozice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let employee of employeeList | employeeSearchFilter: searchQuery;
+        let i = index
+      "
+    >
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ employee.firstName }}</td>
+      <td>{{ employee.lastName }}</td>
+      <td>{{ employee.birthDate }}</td>
+      <td>
+        <div *ngIf="employee.workPositions != ''">
+          {{ employee.workPosition }}
+        </div>
+      </td>
+      <td (mouseenter)="selectEmployee(employee.firstName, employee.lastName)">
+        <app-employee-list-item-update
+          [employeeList]="employeeList"
+          [newData]="selectedEmployee"
+          [workPositions]="workPositions"
+          [modalInfo]="modalInfo"
+        ></app-employee-list-item-update>
+
+        &nbsp;
+        <button
+          (click)="removeEmployee(employee.firstName, employee.lastName)"
+          type="button"
+          class="btn btn-danger btn-sm"
+        >
+          Odstranit
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

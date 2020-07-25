@@ -1,0 +1,13 @@
+.btn-aligned {
+  margin-top: 1vh;
+}
+
+.edit-btn {
+  background: blue;
+  color: white;
+}
+
+.new-btn {
+  background: #28a745;
+  color: white;
+}
